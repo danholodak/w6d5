@@ -1,0 +1,15 @@
+ <%=<input type="hidden" name="_method" value="PATCH"> if action == :update %>
+<label for="name">Cat's Name:</label>
+<input id="name" type="text" name="cat[name]" value="<%= cat.name %>">
+
+<label for="birthdate">Cat's Birth Date:</label>
+<input id="birthdate" type="text" name="cat[birth_date]" value="<%= cat.birth_date %>">
+
+<label for="color">Cat's Color:</label>
+<input id="color" type="text" name="cat[color]" value="<%= cat.color %>">
+
+<label for="sex">Cat's Sex:</label>
+<input id="sex" type="text" name="cat[sex]" value="<%= cat.sex %>">
+
+<label for="description">A description of the cat:</label>
+<text-area>

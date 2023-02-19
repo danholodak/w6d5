@@ -1,0 +1,26 @@
+
+<h1>Rent <%=@cat.name%>!</h1>
+<br>
+
+<table>
+    <thead>
+        <tr>
+            <td>Birthdate:</td>
+            <td>Age:</td>
+            <td>Color:</td>
+            <td>sex:</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%=@cat.birth_date%></td>
+            <td><%=@age%></td>
+            <td><%=@cat.color%></td>
+            <td><%=@cat.sex%></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Description:</h3>
+<p><%=@cat.description || "None"%></p>

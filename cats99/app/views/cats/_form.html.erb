@@ -1,0 +1,59 @@
+<% action_url = (action == :create) ? cats_url : cat_url(cat.id) %>
+<% button_text = (action == :create) ? "Create Cat" : "Update Cat" %>
+<% header_text = (action == :create) ? "Create a new Cat!" : "Update a Cat!" %>
+
+<header>
+<h1><%=header_text%></h1>
+</header>
+<form action="<%=action_url%>" method="POST">
+<%if action == :update %>
+    <input type="hidden" name="_method" value="PATCH"> 
+<%end%>
+<label for="name">Cat's Name:</label>
+<input id="name" type="text" name="cat[name]" value="<%= cat.name %>">
+<br>
+
+<label for="birthdate">Cat's Birth Date:</label>
+<input id="birthdate" type="date" name="cat[birth_date]" value="<%= cat.birth_date %>">
+<br>
+
+
+<select id="color" name="cat[color]">
+<%if action = :create%>
+    <option disabled selected >choose a color</option>
+<%else%>
+    <option disabled>choose a color</option>
+<%end%>
+    <%cat_colors.each do |color|%>
+    <%if cat.color == color%>
+        <option value="<%=color%>" selected><%=color%></option>
+    <%else%>
+        <option value="<%=color%>"><%=color%></option>
+    <%end%>
+
+    <%end%>
+</select>
+<br>
+
+<select id="sex" name="cat[sex]">
+    <%if action = :create%>
+        <option disabled selected >choose a sex</option>
+    <%else%>
+        <option disabled>choose a sex</option>
+    <%end%>
+    
+    <%["M", "F"].each do |sex|%>
+        <%if cat.sex == sex%>
+            <option value="<%=sex%>" selected><%=sex%></option>
+        <%else%>
+            <option value="<%=sex%>"><%=sex%></option>
+        <%end%>
+    <%end%>
+</select>
+<br>
+
+<label for="description">A description of the cat:</label>
+<textarea id="description" name="cat[description]" value="<%= cat.description %>"><%= cat.description %></textarea>
+<br>
+<input type="submit" value="<%= button_text %>">
+</form>

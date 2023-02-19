@@ -1,3 +1,5 @@
+require 'action_view'
+
 # == Schema Information
 #
 # Table name: cats
@@ -12,7 +14,9 @@
 #  updated_at  :datetime         not null
 #
 
-class Cat < ApplicationRecord 
+class Cat < ApplicationRecord
+	include ActionView::Helpers::DateHelper
+	
 	CAT_COLORS = ["brown", "grey", "black", "orange", "amber", "white"].freeze
 
 	validates :birth_date, :name, :color, :sex, presence: true 
@@ -20,13 +24,20 @@ class Cat < ApplicationRecord
 	validates :sex, inclusion: {in: ["M", "F"], message: "We don't respect non-gender pronouns!"}
 	validate :birth_date_cannot_be_future
 
-	
-
 	def birth_date_cannot_be_future
 		today = Date.today#parse(Time.now.to_s.split[0])
-		if (:birth_date <=> today) == 1
+		birthdate_compare = birth_date <=> today
+		unless [0,-1].include?(birthdate_compare)
 			#sad
-			errors.add(:birthdate, "Cat not born yet!!")
+			errors.add(:birth_date, "Cat not born yet!!")
 		end
+	end
+
+	def age
+		time_ago_in_words(birth_date.to_time)
+	end
+
+	def cat_colors
+		CAT_COLORS
 	end
 end
